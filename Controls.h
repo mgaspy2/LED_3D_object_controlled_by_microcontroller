@@ -1,38 +1,56 @@
-#pragma once
+#ifndef CONTROLS_H
+#define CONTROLS_H
 
 
+// --- Button --------------------------------
 class Button {
-  public:
-    volatile bool buttonState;
-    int buttonPresses;
-    int buttonPin;
+public:
+  bool buttonState;
+  int buttonPresses;
+  const uint8_t buttonPin;
+  unsigned long lastTime = 0;
 
-    Button(int pin) {
-      buttonState = false;
-      buttonPresses = 0;
-      buttonPin = pin;
-    }
-
-  inline void Button_ISR(void)
-  {
-    buttonState = true;
+  Button(int pin)
+    : buttonPin(pin) {
+    buttonState = false;
+    buttonPresses = 0;
+    pinMode(buttonPin, INPUT_PULLUP);
+    buttonState = digitalRead(buttonPin);
   }
 
+  bool isPressed();
+
+  void controlsOutput(int*, const uint8_t*);
+
+  void controlsOutput(int*);
 };
+// --- Button --------------------------------
 
-class Potentiometer {
-  public:
-    int potValue;
-    int brightness;
-    int potPin;
+void attributeCheck(int*, const uint8_t);
 
-    Potentiometer(int pin) {
-      potPin = pin;
-    }
-};
+void attributeReset(int*);
 
-void controlsOutput(int*, int, Button);
+// void controlsOutput(int*, int, Button);
 
 // void controlsOutput(Button);
 
-void controlsOutput(Potentiometer);
+
+// --- Potentiometer -------------------------
+class Potentiometer {
+private:
+  int potValueOld = 0;
+public:
+  int potValue;
+  int brightness;
+  int potPin;
+
+  Potentiometer(int pin) {
+    potPin = pin;
+  }
+
+  void controlsOutput();
+};
+// --- Potentiometer -------------------------
+
+
+#endif
