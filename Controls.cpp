@@ -65,9 +65,7 @@ void Button::controlsOutput(int *attribute) {
   Serial.println("Attribute");
   Serial.println(*attribute);
 }
-// --- Button --------------------------------
-
-
+// --- Button utilities ----------------------
 void attributeCheck(int *attribute, const uint8_t num) {
   if (*attribute < 0)
     *attribute = num - 1;
@@ -81,6 +79,7 @@ void attributeReset(int *attribute) {
     Serial.println("Attribute reset");
   }
 }
+// --- Button --------------------------------
 
 
 // --- Potentiometer -------------------------

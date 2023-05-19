@@ -36,8 +36,6 @@ extern int periodCounter1;
 #define ledsPin6 18
 #define ledsPin7  5
 
-extern CRGB leds[];
-
 extern CRGB leds0[];
 extern CRGB leds1[];
 extern CRGB leds2[];
@@ -46,10 +44,6 @@ extern CRGB leds4[];
 extern CRGB leds5[];
 extern CRGB leds6[];
 extern CRGB leds7[];
-
-extern CRGB letterLeds[];
-
-extern CRGB otherLeds[];
 // --- FastLED -------------------------------
 
 

@@ -24,15 +24,10 @@ public:
 
   void controlsOutput(int*);
 };
-// --- Button --------------------------------
-
+// --- Button utilities ----------------------
 void attributeCheck(int*, const uint8_t);
-
 void attributeReset(int*);
-
-// void controlsOutput(int*, int, Button);
-
-// void controlsOutput(Button);
+// --- Button --------------------------------
 
 
 // --- Potentiometer -------------------------
@@ -51,6 +46,4 @@ public:
   void controlsOutput();
 };
 // --- Potentiometer -------------------------
-
-
 #endif

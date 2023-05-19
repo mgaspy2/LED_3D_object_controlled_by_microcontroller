@@ -21,8 +21,6 @@ int periodCounter1 = 0;
 // --- Visualizations ------------------------
 
 // --- FastLED -------------------------------
-CRGB leds[ledsNum];
-
 CRGB leds0[ledsNum];
 CRGB leds1[ledsNum];
 CRGB leds2[ledsNum];
@@ -31,8 +29,4 @@ CRGB leds4[ledsNum];
 CRGB leds5[ledsNum];
 CRGB leds6[ledsNum];
 CRGB leds7[ledsNum];
-
-CRGB letterLeds[ledsNum];
-
-CRGB otherLeds[ledsNum];
 // --- FastLED -------------------------------
