@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <FastLED.h>
 #include "Visualizations.h"
+#include "Timer.h"
 #include "Variables.h"
 
 
@@ -16,6 +17,68 @@ void clcLED() {
     leds6[i] = CRGB::Black;
     leds7[i] = CRGB::Black;
   }
+}
+
+void UAI_vis(uint8_t red, uint8_t green, uint8_t blue) {
+  visCounter(&periodCounter0, &periodPassed0);
+  if (periodCounter0 < 4) {
+    clcLED();
+    for (int i = 0; i < ledsNum; i++) {
+      if (VUT_LOGO[i] == 1) {
+        leds0[i] = CRGB::White;
+        leds1[i] = CRGB::White;
+        leds2[i] = CRGB::White;
+        leds3[i] = CRGB::White;
+        leds4[i] = CRGB::White;
+        leds5[i] = CRGB::White;
+        leds6[i] = CRGB::White;
+        leds7[i] = CRGB::White;
+      } else {
+        leds0[i] = CRGB(red, green, blue);
+        leds1[i] = CRGB(red, green, blue);
+        leds2[i] = CRGB(red, green, blue);
+        leds3[i] = CRGB(red, green, blue);
+        leds4[i] = CRGB(red, green, blue);
+        leds5[i] = CRGB(red, green, blue);
+        leds6[i] = CRGB(red, green, blue);
+        leds7[i] = CRGB(red, green, blue);
+      }
+    } 
+  } else if (periodCounter0 < 6) {
+      clcLED();
+      for (int i = 0; i < ledsNum; i++) {
+        if (ALPHA_U[i] == 1) {
+          leds2[i] = CRGB(red, green, blue);
+          leds3[i] = CRGB(red, green, blue);
+          leds4[i] = CRGB(red, green, blue);
+          leds5[i] = CRGB(red, green, blue);
+        }
+      }
+    } else if (periodCounter0 < 8) {
+      clcLED();
+      for (int i = 0; i < ledsNum; i++) {
+        if (ALPHA_A[i] == 1) {
+          leds2[i] = CRGB(red, green, blue);
+          leds3[i] = CRGB(red, green, blue);
+          leds4[i] = CRGB(red, green, blue);
+          leds5[i] = CRGB(red, green, blue);
+        }
+      }
+    } else if (periodCounter0 < 10) {
+      clcLED();
+      for (int i = 0; i < ledsNum; i++) {
+        if (ALPHA_I[i] == 1) {
+          leds2[i] = CRGB(red, green, blue);
+          leds3[i] = CRGB(red, green, blue);
+          leds4[i] = CRGB(red, green, blue);
+          leds5[i] = CRGB(red, green, blue);
+        }
+      }
+    } else if (periodCounter0 >= 10) {
+      Serial.println("VUT visualization passed");
+      visCounterReset(&periodCounter0);
+    }
+  FastLED.show();
 }
 
 

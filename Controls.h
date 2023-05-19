@@ -14,7 +14,7 @@ public:
     : buttonPin(pin) {
     buttonState = false;
     buttonPresses = 0;
-    pinMode(buttonPin, INPUT_PULLUP);
+    pinMode(buttonPin, INPUT);
     buttonState = digitalRead(buttonPin);
   }
 

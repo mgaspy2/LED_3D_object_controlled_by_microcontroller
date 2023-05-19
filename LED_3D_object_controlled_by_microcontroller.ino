@@ -113,6 +113,7 @@ void loop() {
                 leds7[i] = CRGB::Blue;
               }
             }
+            
             break;
 
           case 2:
