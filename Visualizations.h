@@ -1,31 +1,41 @@
 #pragma once
+#include <FastLED.h>
+#include "Variables.h"
 #include "Controls.h"
 
 // --- Visualization -------------------------
 void UAI_vis(uint8_t, uint8_t, uint8_t);
 
-void RGB_ani(Potentiometer);
+void LED_vis(uint8_t, uint8_t);
 
-void RGB1_ani(Potentiometer);
+void RGB_ani(Potentiometer);
+void RGB_aniOffset(Potentiometer);
 
 void caramelldansen();
 
 void RGB_vis();
 
 void staticColor(uint8_t, uint8_t, uint8_t);
+
+void FIRE_ani();
 // --- Utility functions ---------------------
 void clcLED();
 uint8_t XY(uint8_t, uint8_t);
-void DrawOneFrame(uint8_t, int8_t, int8_t);
-void DrawOneFrame1(uint8_t, int8_t, int8_t);
 uint8_t XYcorrection(uint8_t);
+void DrawOneFrame(uint8_t, int8_t, int8_t);
+void DrawOneFrameOffset(uint8_t, int8_t, int8_t);
 // --- Visualization -------------------------
 
 // --- Vis. variables ------------------------
-#define LAST_VISIBLE_LED 63
 
+
+#define LAST_VISIBLE_LED 63
 const uint8_t kMatrixWidth = 8;
 const uint8_t kMatrixHeight = 8;
+
+const bool gReverseDirection = true;
+#define COOLING  55
+#define SPARKING 120
 // --- Vis. variables ------------------------
 
 // --- VUT LOGO ------------------------------

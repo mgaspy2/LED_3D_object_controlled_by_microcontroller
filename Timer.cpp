@@ -27,3 +27,13 @@ void visCounterReset(int *counter) {
   if(*counter != 0)
     *counter = 0;
 }
+
+bool aniTimer(unsigned long *last, unsigned long *period) {
+  unsigned long current = millis();
+  if (current - *last >= *period) {
+    *last = current;
+    return true;
+  } else {
+    return false;
+  }
+}

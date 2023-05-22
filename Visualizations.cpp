@@ -1,8 +1,7 @@
 #include <Arduino.h>
-#include <FastLED.h>
 #include "Visualizations.h"
 #include "Timer.h"
-#include "Variables.h"
+
 
 
 
@@ -69,6 +68,35 @@ void UAI_vis(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 
+void LED_vis(uint8_t bpm, uint8_t fade) {
+  uint8_t sinWave0 = beatsin8(bpm, 0, ledsNum - 1, 0, 0);
+  uint8_t sinWave1 = beatsin8(bpm, 0, ledsNum - 1, 0, 8);
+  uint8_t sinWave2 = beatsin8(bpm, 0, ledsNum - 1, 0, 16);
+  uint8_t sinWave3 = beatsin8(bpm, 0, ledsNum - 1, 0, 24);
+  uint8_t sinWave4 = beatsin8(bpm, 0, ledsNum - 1, 0, 32);
+  uint8_t sinWave5 = beatsin8(bpm, 0, ledsNum - 1, 0, 40);
+  uint8_t sinWave6 = beatsin8(bpm, 0, ledsNum - 1, 0, 48);
+  uint8_t sinWave7 = beatsin8(bpm, 0, ledsNum - 1, 0, 56);
+  
+  leds0[sinWave0] = CRGB::Red;
+  fadeToBlackBy(leds0, ledsNum, fade);
+  leds1[sinWave1] = CRGB::Orange;
+  fadeToBlackBy(leds1, ledsNum, fade);
+  leds2[sinWave2] = CRGB::Yellow;
+  fadeToBlackBy(leds2, ledsNum, fade);
+  leds3[sinWave3] = CRGB::Green;
+  fadeToBlackBy(leds3, ledsNum, fade);
+  leds4[sinWave4] = CRGB::Blue;
+  fadeToBlackBy(leds4, ledsNum, fade);
+  leds5[sinWave5] = CRGB::Indigo;
+  fadeToBlackBy(leds5, ledsNum, fade);
+  leds6[sinWave6] = CRGB::Violet;
+  fadeToBlackBy(leds6, ledsNum, fade);
+  leds7[sinWave7] = CRGB::White;
+  fadeToBlackBy(leds7, ledsNum, fade);
+  FastLED.show();
+}
+
 void RGB_ani(Potentiometer pot) {
   uint32_t ms = millis();
   int32_t yHueDelta32 = ((int32_t)cos16( ms * (27/1) ) * (350 / kMatrixWidth));
@@ -82,11 +110,11 @@ void RGB_ani(Potentiometer pot) {
   FastLED.show();
 }
 
-void RGB1_ani(Potentiometer pot) {
+void RGB_aniOffset(Potentiometer pot) {
   uint32_t ms = millis();
   int32_t yHueDelta32 = ((int32_t)cos16( ms * (27/1) ) * (350 / kMatrixWidth));
   int32_t xHueDelta32 = ((int32_t)cos16( ms * (39/1) ) * (310 / kMatrixHeight));
-  DrawOneFrame1( ms / 65536, yHueDelta32 / 32768, xHueDelta32 / 32768);
+  DrawOneFrameOffset( ms / 65536, yHueDelta32 / 32768, xHueDelta32 / 32768);
   if( ms < 5000 ) {
     FastLED.setBrightness( scale8( pot.brightness, (ms * 256) / 5000));
   } else {
@@ -94,8 +122,6 @@ void RGB1_ani(Potentiometer pot) {
   }
   FastLED.show();
 }
-
-
 
 
 void caramelldansen() {
@@ -242,6 +268,89 @@ void staticColor(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 
+void FIRE_ani() {
+  random16_add_entropy(random());
+  static uint8_t heat[ledsNum];
+
+  // // Step 1.  Cool down every cell a little
+  // for(int i = 0; i < 8; i++) {
+  //   for(int j = 0; j < 8; j++)
+  //     heat[XY(i,j)] = qsub8( heat[XY(i,j)],  random8(0, ((COOLING * 10) / 8) + 2));
+  // }
+
+  // // Step 2.  Heat from each cell drifts 'up' and diffuses a little
+  // for( int i= 8 - 1; i >= 1; i--) {
+  //   for( int j= 8 - 1; j >= 1; j--)
+  //     heat[XY(i,j)] = (heat[XY(i,j) - 1] + heat[XY(i,j) - 2] + heat[XY(i,j) - 2] ) / 3;
+  // }
+  
+  // // Step 3.  Randomly ignite new 'sparks' of heat near the bottom
+  // if( random8() < SPARKING ) {
+  //   int i = random8(7);
+  //   int j = random8(7);
+  //   heat[XY(i,j)] = qadd8( heat[XY(i,j)], random8(160,255) );
+  // }
+
+  // // Step 4.  Map from heat cells to LED colors
+  // for( int i = 0; i < 8; i++) {
+  //   for( int j = 0; j < 8; j++) {
+  //     CRGB color = HeatColor( heat[XY(i,j)]);
+  //     int pixelnumber;
+  //     if( gReverseDirection ) {
+  //       pixelnumber = (ledsNum-1) - XY(i,j);
+  //     } else {
+  //       pixelnumber = XY(i,j);
+  //     }
+  //     leds0[pixelnumber] = color;
+  //     leds1[pixelnumber] = color;
+  //     leds2[pixelnumber] = color;
+  //     leds3[pixelnumber] = color;
+  //     leds4[pixelnumber] = color;
+  //     leds5[pixelnumber] = color;
+  //     leds6[pixelnumber] = color;
+  //     leds7[pixelnumber] = color;
+  //   }
+  // }
+
+  // Step 1.  Cool down every cell a little
+    for( int i = 0; i < ledsNum; i++) {
+      heat[i] = qsub8( heat[i],  random8(0, ((COOLING * 10) / ledsNum) + 2));
+    }
+  
+    // Step 2.  Heat from each cell drifts 'up' and diffuses a little
+    for( int k= ledsNum - 1; k >= 2; k--) {
+      heat[k] = (heat[k - 1] + heat[k - 2] + heat[k - 2] ) / 3;
+    }
+    
+    // Step 3.  Randomly ignite new 'sparks' of heat near the bottom
+    if( random8() < SPARKING ) {
+      int y = random8(7);
+      heat[y] = qadd8( heat[y], random8(160,255) );
+    }
+
+    // Step 4.  Map from heat cells to LED colors
+    for( int j = 0; j < ledsNum; j++) {
+      CRGB color = HeatColor( heat[j]);
+      int pixelnumber;
+      if( gReverseDirection ) {
+        pixelnumber = (ledsNum-1) - j;
+      } else {
+        pixelnumber = j;
+      }
+      leds0[pixelnumber] = color;
+      leds1[pixelnumber] = color;
+      leds2[pixelnumber] = color;
+      leds3[pixelnumber] = color;
+      leds4[pixelnumber] = color;
+      leds5[pixelnumber] = color;
+      leds6[pixelnumber] = color;
+      leds7[pixelnumber] = color;
+    }
+    
+  FastLED.show();
+}
+
+
 
 void clcLED() {
   for (int i = 0; i < ledsNum; i++) {
@@ -278,6 +387,13 @@ uint8_t XY (uint8_t x, uint8_t y) {
   return j;
 }
 
+uint8_t XYcorrection(uint8_t index) {
+  uint8_t i = index;
+  if (index > 63)
+    i = index - 64;
+  return i;
+}
+
 void DrawOneFrame(uint8_t startHue8, int8_t yHueDelta8, int8_t xHueDelta8) {
   uint8_t lineStartHue = startHue8;
   for( uint8_t y = 0; y < kMatrixHeight; y++) {
@@ -297,7 +413,7 @@ void DrawOneFrame(uint8_t startHue8, int8_t yHueDelta8, int8_t xHueDelta8) {
   }
 }
 
-void DrawOneFrame1(uint8_t startHue8, int8_t yHueDelta8, int8_t xHueDelta8) {
+void DrawOneFrameOffset(uint8_t startHue8, int8_t yHueDelta8, int8_t xHueDelta8) {
   uint8_t lineStartHue = startHue8;
   for( uint8_t y = 0; y < kMatrixHeight; y++) {
     lineStartHue += yHueDelta8;
@@ -314,11 +430,4 @@ void DrawOneFrame1(uint8_t startHue8, int8_t yHueDelta8, int8_t xHueDelta8) {
       leds7[XYcorrection(XY(x, y) + 7)]  = CHSV( pixelHue, 255, 255);
     }
   }
-}
-
-uint8_t XYcorrection(uint8_t index) {
-  uint8_t i = index;
-  if (index >= 63)
-    i = index - 63;
-  return i;
 }

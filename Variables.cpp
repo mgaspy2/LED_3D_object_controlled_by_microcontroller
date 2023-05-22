@@ -2,13 +2,13 @@
 
 // --- Controls ------------------------------
 int cubeMode = 0;
-const uint8_t cubeMQ = 3;
+const uint8_t cubeMQ = 4;
 
 int modeAttribute = 0;
 const uint8_t attributeQ = 3;
 // --- Controls ------------------------------
 
-// --- Visualizations ------------------------
+// --- Timer ---------------------------------
 unsigned long previousTime0 = 0;
 unsigned long timePeriod0 = 1000;
 bool periodPassed0 = false;
@@ -18,6 +18,16 @@ unsigned long previousTime1 = 0;
 unsigned long timePeriod1 = 100;
 bool periodPassed1 = false;
 int periodCounter1 = 0;
+
+unsigned long lastMillis = 0;
+unsigned long aniFPS120 = 8;
+unsigned long aniFPS90 = 11;
+unsigned long aniFPS60 = 16;
+unsigned long aniFPS30 = 33;
+unsigned long aniFPS10 = 100;
+// --- Timer ---------------------------------
+
+// --- Visualizations ------------------------
 // --- Visualizations ------------------------
 
 // --- FastLED -------------------------------

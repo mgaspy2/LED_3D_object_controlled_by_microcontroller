@@ -52,7 +52,8 @@ void loop() {
 
   visTimer(&previousTime0, &timePeriod0, &periodPassed0);
   visTimer(&previousTime1, &timePeriod1, &periodPassed1);
-
+  
+  
   // --- Serial ------------------------------
   // Serial.println("previous millis"); Serial.println(previousTime0);
   // Serial.println("period0 passed"); Serial.println(periodPassed0);
@@ -83,17 +84,33 @@ void loop() {
           break;                          
 
         case 1:
-          RGB1_ani(potentiometer);
+          RGB_aniOffset(potentiometer);
           break;
 
         case 2:
           caramelldansen();
-          //RGB_vis();
+          // RGB_vis();
           break;
       }
       break;
 
     case 2:
+      switch (modeAttribute) {
+        case 0:
+          LED_vis(60, 8);
+          break;
+
+        case 1:
+          LED_vis(30, 24);
+          break;
+
+        case 2:
+          LED_vis(5, 72);
+          break;
+      }
+      break;
+
+    case 3:
       switch (modeAttribute) {
         case 0:
           staticColor(255, 255, 255);
