@@ -36,17 +36,33 @@ void loop() {
     leftButton.controlsOutput(&cubeMode, &cubeMQ);
     visCounterReset(&periodCounter0);
     attributeReset(&modeAttribute);
+    lastMillis0 = 0;
+    lastMillis1 = 0;
+    lastMillis2 = 0;
+    clcLED();
   }
   if (rightButton.isPressed()) {
     rightButton.controlsOutput(&cubeMode, &cubeMQ);
     visCounterReset(&periodCounter0);
     attributeReset(&modeAttribute);
+    lastMillis0 = 0;
+    lastMillis1 = 0;
+    lastMillis2 = 0;
+    clcLED();
   }
   if (minusButton.isPressed()) {
     minusButton.controlsOutput(&modeAttribute, &attributeQ);
+    lastMillis0 = 0;
+    lastMillis1 = 0;
+    lastMillis2 = 0;
+    clcLED();
   }
   if (plusButton.isPressed()) {
     plusButton.controlsOutput(&modeAttribute, &attributeQ);
+    lastMillis0 = 0;
+    lastMillis1 = 0;
+    lastMillis2 = 0;
+    clcLED();
   }
   potentiometer.controlsOutput();
 
@@ -113,11 +129,43 @@ void loop() {
     case 3:
       switch (modeAttribute) {
         case 0:
-          staticColor(255, 255, 255);
+          star(&lastMillis0, &lastMillis1, &lastMillis2, 1000, 50, 50, potentiometer, starMemory);
           break;
 
         case 1:
-          staticColor(218, 165,  32);
+          star(&lastMillis0, &lastMillis1, &lastMillis2, 1000, 75, 75, potentiometer, starMemory);
+          break;
+
+        case 2:
+          star(&lastMillis0, &lastMillis1, &lastMillis2, 1000, 90, 90, potentiometer, starMemory);
+          break;
+      }
+      break;
+
+    case 4:
+      switch (modeAttribute) {
+        case 0:
+          stars(&lastMillis0, &lastMillis1, &lastMillis2, 1000, 20, 50, potentiometer, starsMemory);
+          break;
+
+        case 1:
+          stars(&lastMillis0, &lastMillis1, &lastMillis2, 2000, 100, 90, potentiometer, starsMemory);
+          break;
+
+        case 2:
+          stars(&lastMillis0, &lastMillis1, &lastMillis2, 5000, 200, 80, potentiometer, starsMemory);
+          break;
+      }
+      break;
+
+    case 5:
+      switch (modeAttribute) {
+        case 0:
+          staticColor(255, 255, 255);          
+          break;
+
+        case 1:
+          staticColor(218, 165,  32);        
           break;
 
         case 2:

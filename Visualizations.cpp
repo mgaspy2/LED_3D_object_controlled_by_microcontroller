@@ -4,7 +4,6 @@
 
 
 
-
 void UAI_vis(uint8_t red, uint8_t green, uint8_t blue) {
   visCounter(&periodCounter0, &periodPassed0);
   if (periodCounter0 < 4) {
@@ -253,6 +252,130 @@ void RGB_vis() {
 }
 
 
+void star(unsigned long *lastMil0, unsigned long *lastMil1, unsigned long *lastMil2, unsigned long period0, unsigned long period1, uint8_t chance, Potentiometer pot, int *memory) {
+  unsigned long currentMil = millis();
+  chance = chance % 100;
+
+  if(currentMil - *lastMil0 >= period0) {
+    *lastMil0 = currentMil;
+
+    memory[0] = random(0, 100);
+    memory[1] = random(0, 7);
+    memory[2] = random(0, 63);
+    memory[3] = 0;
+  }
+  
+  if(currentMil - *lastMil1 >= 10) {
+    *lastMil1 = currentMil;
+
+    if(memory[0] >= 100 - chance) {
+      if (memory[1] == 0) 
+        leds0[memory[2]].setRGB(memory[3], memory[3], memory[3]); 
+      if (memory[1] == 1) 
+        leds1[memory[2]].setRGB(memory[3], memory[3], memory[3]);     
+      if (memory[1] == 2)
+        leds2[memory[2]].setRGB(memory[3], memory[3], memory[3]);       
+      if (memory[1] == 3)
+        leds3[memory[2]].setRGB(memory[3], memory[3], memory[3]);     
+      if (memory[1] == 4)
+        leds4[memory[2]].setRGB(memory[3], memory[3], memory[3]);      
+      if (memory[1] == 5)
+        leds5[memory[2]].setRGB(memory[3], memory[3], memory[3]);
+      if (memory[1] == 6)
+        leds6[memory[2]].setRGB(memory[3], memory[3], memory[3]);  
+      if (memory[1] == 7)
+        leds7[memory[2]].setRGB(memory[3], memory[3], memory[3]);
+
+      memory[3] += 1;
+      if (memory[3] > 255)
+      memory[3] = 255;
+    }
+  }
+
+  FastLED.show();
+
+  if(currentMil - *lastMil2 >= period1) {
+    *lastMil2 = currentMil;
+    fadeToBlackBy(leds0, ledsNum, 1);
+    fadeToBlackBy(leds1, ledsNum, 1);
+    fadeToBlackBy(leds2, ledsNum, 1);
+    fadeToBlackBy(leds3, ledsNum, 1);
+    fadeToBlackBy(leds4, ledsNum, 1);
+    fadeToBlackBy(leds5, ledsNum, 1);
+    fadeToBlackBy(leds6, ledsNum, 1);
+    fadeToBlackBy(leds7, ledsNum, 1);
+  }
+}
+
+
+void stars(unsigned long *lastMil0, unsigned long *lastMil1, unsigned long *lastMil2, unsigned long period0, unsigned long period1, uint8_t chance, Potentiometer pot, int *memory) {
+  unsigned long currentMil = millis();
+  chance = chance % 100;
+  
+  if(currentMil - *lastMil0 >= period0) {
+    *lastMil0 = currentMil;
+    memory[0] = random(0, 100);
+    memory[1] = random(0, 100);
+    memory[2] = random(0, 100);
+    memory[3] = random(0, 100);
+    memory[4] = random(0, 100);
+    memory[5] = random(0, 100);
+    memory[6] = random(0, 100);
+    memory[7] = random(0, 100);
+
+    memory[8] = random(0, 63);
+    memory[9] = random(0, 63);
+    memory[10] = random(0, 63);
+    memory[11] = random(0, 63);
+    memory[12] = random(0, 63);
+    memory[13] = random(0, 63);
+    memory[14] = random(0, 63);
+    memory[15] = random(0, 63);
+
+    memory[16] = 0;
+  }
+
+  if(currentMil - *lastMil1 >= 10) {
+    *lastMil1 = currentMil;
+
+    if (memory[0] >= 100 - chance)
+      leds0[memory[8]].setRGB(memory[16], memory[16], memory[16]);
+    if (memory[1] >= 100 - chance)
+      leds1[memory[9]].setRGB(memory[16], memory[16], memory[16]);
+    if (memory[2] >= 100 - chance)
+      leds2[memory[10]].setRGB(memory[16], memory[16], memory[16]);
+    if (memory[3] >= 100 - chance)
+      leds3[memory[11]].setRGB(memory[16], memory[16], memory[16]);
+    if (memory[4] >= 100 - chance)
+      leds4[memory[12]].setRGB(memory[16], memory[16], memory[16]);
+    if (memory[5] >= 100 - chance)
+      leds5[memory[13]].setRGB(memory[16], memory[16], memory[16]);
+    if (memory[6] >= 100 - chance)
+      leds6[memory[14]].setRGB(memory[16], memory[16], memory[16]);
+    if (memory[7] >= 100 - chance)
+      leds7[memory[15]].setRGB(memory[16], memory[16], memory[16]);
+
+    memory[16] += 1;
+    if (memory[16] > 255)
+      memory[16] = 255;
+  }
+
+  FastLED.show();
+
+  if(currentMil - *lastMil2 >= period1) {
+    *lastMil2 = currentMil;
+    fadeToBlackBy(leds0, ledsNum, 1);
+    fadeToBlackBy(leds1, ledsNum, 1);
+    fadeToBlackBy(leds2, ledsNum, 1);
+    fadeToBlackBy(leds3, ledsNum, 1);
+    fadeToBlackBy(leds4, ledsNum, 1);
+    fadeToBlackBy(leds5, ledsNum, 1);
+    fadeToBlackBy(leds6, ledsNum, 1);
+    fadeToBlackBy(leds7, ledsNum, 1);
+  }
+}
+
+
 void staticColor(uint8_t red, uint8_t green, uint8_t blue) {
   for (int i = 0; i < ledsNum; i++) {
     leds0[i] = CRGB(red, green, blue);
@@ -268,87 +391,6 @@ void staticColor(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 
-void FIRE_ani() {
-  random16_add_entropy(random());
-  static uint8_t heat[ledsNum];
-
-  // // Step 1.  Cool down every cell a little
-  // for(int i = 0; i < 8; i++) {
-  //   for(int j = 0; j < 8; j++)
-  //     heat[XY(i,j)] = qsub8( heat[XY(i,j)],  random8(0, ((COOLING * 10) / 8) + 2));
-  // }
-
-  // // Step 2.  Heat from each cell drifts 'up' and diffuses a little
-  // for( int i= 8 - 1; i >= 1; i--) {
-  //   for( int j= 8 - 1; j >= 1; j--)
-  //     heat[XY(i,j)] = (heat[XY(i,j) - 1] + heat[XY(i,j) - 2] + heat[XY(i,j) - 2] ) / 3;
-  // }
-  
-  // // Step 3.  Randomly ignite new 'sparks' of heat near the bottom
-  // if( random8() < SPARKING ) {
-  //   int i = random8(7);
-  //   int j = random8(7);
-  //   heat[XY(i,j)] = qadd8( heat[XY(i,j)], random8(160,255) );
-  // }
-
-  // // Step 4.  Map from heat cells to LED colors
-  // for( int i = 0; i < 8; i++) {
-  //   for( int j = 0; j < 8; j++) {
-  //     CRGB color = HeatColor( heat[XY(i,j)]);
-  //     int pixelnumber;
-  //     if( gReverseDirection ) {
-  //       pixelnumber = (ledsNum-1) - XY(i,j);
-  //     } else {
-  //       pixelnumber = XY(i,j);
-  //     }
-  //     leds0[pixelnumber] = color;
-  //     leds1[pixelnumber] = color;
-  //     leds2[pixelnumber] = color;
-  //     leds3[pixelnumber] = color;
-  //     leds4[pixelnumber] = color;
-  //     leds5[pixelnumber] = color;
-  //     leds6[pixelnumber] = color;
-  //     leds7[pixelnumber] = color;
-  //   }
-  // }
-
-  // Step 1.  Cool down every cell a little
-    for( int i = 0; i < ledsNum; i++) {
-      heat[i] = qsub8( heat[i],  random8(0, ((COOLING * 10) / ledsNum) + 2));
-    }
-  
-    // Step 2.  Heat from each cell drifts 'up' and diffuses a little
-    for( int k= ledsNum - 1; k >= 2; k--) {
-      heat[k] = (heat[k - 1] + heat[k - 2] + heat[k - 2] ) / 3;
-    }
-    
-    // Step 3.  Randomly ignite new 'sparks' of heat near the bottom
-    if( random8() < SPARKING ) {
-      int y = random8(7);
-      heat[y] = qadd8( heat[y], random8(160,255) );
-    }
-
-    // Step 4.  Map from heat cells to LED colors
-    for( int j = 0; j < ledsNum; j++) {
-      CRGB color = HeatColor( heat[j]);
-      int pixelnumber;
-      if( gReverseDirection ) {
-        pixelnumber = (ledsNum-1) - j;
-      } else {
-        pixelnumber = j;
-      }
-      leds0[pixelnumber] = color;
-      leds1[pixelnumber] = color;
-      leds2[pixelnumber] = color;
-      leds3[pixelnumber] = color;
-      leds4[pixelnumber] = color;
-      leds5[pixelnumber] = color;
-      leds6[pixelnumber] = color;
-      leds7[pixelnumber] = color;
-    }
-    
-  FastLED.show();
-}
 
 
 

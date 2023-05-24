@@ -15,9 +15,10 @@ void caramelldansen();
 
 void RGB_vis();
 
-void staticColor(uint8_t, uint8_t, uint8_t);
+void star(unsigned long*, unsigned long*, unsigned long*, unsigned long, unsigned long, uint8_t, Potentiometer, int*);
+void stars(unsigned long*, unsigned long*, unsigned long*, unsigned long, unsigned long, uint8_t, Potentiometer, int*);
 
-void FIRE_ani();
+void staticColor(uint8_t, uint8_t, uint8_t);
 // --- Utility functions ---------------------
 void clcLED();
 uint8_t XY(uint8_t, uint8_t);
@@ -27,8 +28,6 @@ void DrawOneFrameOffset(uint8_t, int8_t, int8_t);
 // --- Visualization -------------------------
 
 // --- Vis. variables ------------------------
-
-
 #define LAST_VISIBLE_LED 63
 const uint8_t kMatrixWidth = 8;
 const uint8_t kMatrixHeight = 8;

@@ -23,15 +23,14 @@ extern unsigned long timePeriod1;
 extern bool periodPassed1;
 extern int periodCounter1;
 
-extern unsigned long lastMillis;
-extern unsigned long aniFPS120;
-extern unsigned long aniFPS90;
-extern unsigned long aniFPS60;
-extern unsigned long aniFPS30;
-extern unsigned long aniFPS10;
+extern unsigned long lastMillis0;
+extern unsigned long lastMillis1;
+extern unsigned long lastMillis2;
 // --- Timer ---------------------------------
 
 // --- Visualization -------------------------
+extern int starMemory[];
+extern int starsMemory[];
 // --- Visualization -------------------------
 
 // --- FastLED -------------------------------
