@@ -25,7 +25,7 @@ void setup() {
   FastLED.addLeds<WS2812, ledsPin4>(leds4, ledsNum);
   FastLED.addLeds<WS2812, ledsPin5>(leds5, ledsNum);
   FastLED.addLeds<WS2812, ledsPin6>(leds6, ledsNum);
-  FastLED.addLeds<WS2812, ledsPin7>(leds7, ledsNum); 
+  FastLED.addLeds<WS2812, ledsPin7>(leds7, ledsNum);
   FastLED.setBrightness(map(analogRead(potentiometer.potPin), 0, 4095, 1, 255));
   // --- FastLED -----------------------------
 }
@@ -68,8 +68,8 @@ void loop() {
 
   visTimer(&previousTime0, &timePeriod0, &periodPassed0);
   visTimer(&previousTime1, &timePeriod1, &periodPassed1);
-  
-  
+
+
   // --- Serial ------------------------------
   // Serial.println("previous millis"); Serial.println(previousTime0);
   // Serial.println("period0 passed"); Serial.println(periodPassed0);
@@ -78,26 +78,26 @@ void loop() {
 
   switch (cubeMode) {
     case 0:
-        switch (modeAttribute) {
-          case 0:
-            UAI_vis(255,0,0);
-            break;
+      switch (modeAttribute) {
+        case 0:
+          UAI_vis(255, 0, 0);
+          break;
 
-          case 1:
-            UAI_vis(0,255,0);
-            break;
+        case 1:
+          UAI_vis(0, 255, 0);
+          break;
 
-          case 2:
-            UAI_vis(0,0,255);
-            break;
-        };
+        case 2:
+          UAI_vis(0, 0, 255);
+          break;
+      };
       break;
 
     case 1:
       switch (modeAttribute) {
         case 0:
           RGB_ani(potentiometer);
-          break;                          
+          break;
 
         case 1:
           RGB_aniOffset(potentiometer);
@@ -161,15 +161,15 @@ void loop() {
     case 5:
       switch (modeAttribute) {
         case 0:
-          staticColor(255, 255, 255);          
+          staticColor(255, 255, 255);
           break;
 
         case 1:
-          staticColor(218, 165,  32);        
+          staticColor(218, 165, 32);
           break;
 
         case 2:
-          staticColor(255, 140,  0);
+          staticColor(255, 140, 0);
           break;
       }
       break;
@@ -177,5 +177,4 @@ void loop() {
 
   visTimerReset(&periodPassed0);
   visTimerReset(&periodPassed1);
-  // Serial.println("loop passed"); Serial.println();
 }

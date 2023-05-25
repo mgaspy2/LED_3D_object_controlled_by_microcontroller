@@ -1,5 +1,6 @@
 #include "Variables.h"
 
+
 // --- Controls ------------------------------
 int cubeMode = 0;
 const uint8_t cubeMQ = 6;
@@ -25,8 +26,8 @@ unsigned long lastMillis2 = 0;
 // --- Timer ---------------------------------
 
 // --- Visualizations ------------------------
-int starMemory[4] = {0};
-int starsMemory[17] = {0};
+int starMemory[4] = { 0 };
+int starsMemory[17] = { 0 };
 // --- Visualizations ------------------------
 
 // --- FastLED -------------------------------

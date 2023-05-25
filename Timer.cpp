@@ -13,7 +13,7 @@ void visTimer(unsigned long *previous, unsigned long *period, bool *check) {
 }
 
 void visTimerReset(bool *check) {
-  if(*check)
+  if (*check)
     *check = false;
 }
 
@@ -24,7 +24,7 @@ void visCounter(int *counter, bool *check) {
 }
 
 void visCounterReset(int *counter) {
-  if(*counter != 0)
+  if (*counter != 0)
     *counter = 0;
 }
 

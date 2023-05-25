@@ -31,7 +31,6 @@ void Button::controlsOutput(int *mode, const uint8_t *num) {
     else if (*mode > *num - 1)
       *mode = 0;
     Serial.println("Mode");
-    
   }
 
   if (buttonPin == 14) {
@@ -74,7 +73,7 @@ void attributeCheck(int *attribute, const uint8_t num) {
 }
 
 void attributeReset(int *attribute) {
-  if(*attribute != 0){
+  if (*attribute != 0) {
     *attribute = 0;
     Serial.println("Attribute reset");
   }

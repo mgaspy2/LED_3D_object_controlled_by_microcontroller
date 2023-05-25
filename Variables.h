@@ -1,8 +1,8 @@
 #ifndef VARIABLES_H
 #define VARIABLES_H
 
-
 #include <FastLED.h>
+
 
 // --- Controls ------------------------------
 extern int cubeMode;
@@ -34,16 +34,16 @@ extern int starsMemory[];
 // --- Visualization -------------------------
 
 // --- FastLED -------------------------------
-#define ledsNum  64
+#define ledsNum 64
 
 #define ledsPin0 23
 #define ledsPin1 22
-#define ledsPin2  2
-#define ledsPin3  4
+#define ledsPin2 2
+#define ledsPin3 4
 #define ledsPin4 21
 #define ledsPin5 19
 #define ledsPin6 18
-#define ledsPin7  5
+#define ledsPin7 5
 
 extern CRGB leds0[];
 extern CRGB leds1[];
